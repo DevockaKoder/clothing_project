@@ -57,9 +57,6 @@ print("Äîëÿ âåðíûõ îòâåòîâ íà òåñòîâûõ äàííûõ, 
 
 n_rec = 496
 
-plt.imshow(x_test[n_rec].reshape(28, 28), cmap=plt.cm.binary)
-plt.show()
-
 x = x_test[n_rec]
 x = np.expand_dims(x, axis=0)
 
