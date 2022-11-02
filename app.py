@@ -42,6 +42,8 @@ history = model.fit(x_train, y_train,
 model.save('fashion_mnist_dense.h5')
 
 def preprocess_image(img):
+    img = img.resize((28, 28))
+    img = color_image.convert('L')
     x = image.img_to_array(img)
     # Меняем форму массива в плоский вектор
     x = x.reshape(1, 784)
@@ -56,8 +58,6 @@ def load_image():
     uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
-        st.image(image_data)
-        image_data = image_data.resize((28,28))
         st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     else:
@@ -76,4 +76,6 @@ if result:
     preds = model.predict(x)
     st.write('**Результаты распознавания:**')
     print_predictions(preds)
+    
+st.image(img)
     
