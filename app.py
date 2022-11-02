@@ -15,29 +15,13 @@ from PIL import Image
 classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
 
 x_train = x_train.reshape(60000, 784)
-x_test = x_test.reshape(10000, 784)
 
 # Векторизованные операции
 # Применяются к каждому элементу массива отдельно
 x_train = x_train / 255 
-x_test = x_test / 255 
 
-n = 0
-
-print(y_train[n])
-
-y_train = utils.to_categorical(
-
-(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
-
-classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
-
-x_train = x_train.reshape(60000, 784)y_train, 10)
-
-y_test = utils.to_categorical(y_test, 10)
-
-print(y_train[n])
-
+y_train = utils.to_categorical(y_train, 10)
+ 
 # Создаем последовательную модель
 model = Sequential()
 # Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
@@ -52,6 +36,8 @@ history = model.fit(x_train, y_train,
                     epochs=100,
                     validation_split=0.2,
                     verbose=1)
+
+model.save('fashion_mnist_dense.h5')
 
 def preprocess_image(img):
     img = img.resize((224, 224))
