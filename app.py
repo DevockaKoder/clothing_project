@@ -26,7 +26,13 @@ n = 0
 
 print(y_train[n])
 
-y_train = utils.to_categorical(y_train, 10)
+y_train = utils.to_categorical(
+
+(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+
+classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
+
+x_train = x_train.reshape(60000, 784)y_train, 10)
 
 y_test = utils.to_categorical(y_test, 10)
 
@@ -41,17 +47,11 @@ model.add(Dense(10, activation="softmax"))
 
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
 
-print(model.summary())
-
 history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs=100,
                     validation_split=0.2,
                     verbose=1)
-
-scores = model.evaluate(x_test, y_test, verbose=1)
-
-print("Доля верных ответов на тестовых данных, в процентах:", round(scores[1] * 100, 4))
 
 def preprocess_image(img):
     img = img.resize((224, 224))
@@ -83,3 +83,4 @@ if result:
     preds = model.predict(x)
     st.write('**Результаты распознавания:**')
     print_predictions(preds)
+    
