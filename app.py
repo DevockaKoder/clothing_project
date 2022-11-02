@@ -55,23 +55,6 @@ scores = model.evaluate(x_test, y_test, verbose=1)
 
 print("Äîëÿ âåðíûõ îòâåòîâ íà òåñòîâûõ äàííûõ, â ïðîöåíòàõ:", round(scores[1] * 100, 4))
 
-n_rec = 496
-
-x = x_test[n_rec]
-x = np.expand_dims(x, axis=0)
-
-prediction = model.predict(x)
-
-prediction = np.argmax(prediction[0])
-print("Íîìåð êëàññà:", prediction)
-print("Íàçâàíèå êëàññà:", classes[prediction])
-
-label = np.argmax(y_test[0])
-print("Íîìåð êëàññà:", label)
-print("Íàçâàíèå êëàññà:", classes[label])
-
-#jfjjf
-
 def preprocess_image(img):
     img = img.resize((224, 224))
     x = image.img_to_array(img)
@@ -88,8 +71,6 @@ def load_image():
         return Image.open(io.BytesIO(image_data))
     else:
         return None
-    
-model = load_model()
     
 def print_predictions(preds):
     classes = decode_predictions(preds, top=3)[0]
