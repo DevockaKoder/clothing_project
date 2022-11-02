@@ -3,6 +3,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras import utils
 from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications import EfficientNetB0
+from tensorflow.keras.applications.efficientnet import preprocess_input
 
 import io
 import requests
@@ -42,12 +44,8 @@ model.save('fashion_mnist_dense.h5')
 def preprocess_image(img):
     img = img.resize((224, 224))
     x = image.img_to_array(img)
-    # Меняем форму массива в плоский вектор
-    x = x.reshape(1, 784)
-    # Инвертируем изображение
-    x = 255 - x
-    # Нормализуем изображение
-    x /= 255
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x
     return x
 
 
