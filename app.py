@@ -17,8 +17,8 @@ classes = ['футболка', 'брюки', 'свитер', 'платье', 'п
 x_train = x_train.reshape(60000, 784)
 x_test = x_test.reshape(10000, 784)
 
-# Âåêòîðèçîâàííûå îïåðàöèè
-# Ïðèìåíÿþòñÿ ê êàæäîìó ýëåìåíòó ìàññèâà îòäåëüíî
+# Векторизованные операции
+# Применяются к каждому элементу массива отдельно
 x_train = x_train / 255 
 x_test = x_test / 255 
 
@@ -32,11 +32,11 @@ y_test = utils.to_categorical(y_test, 10)
 
 print(y_train[n])
 
-# Ñîçäàåì ïîñëåäîâàòåëüíóþ ìîäåëü
+# Создаем последовательную модель
 model = Sequential()
-# Âõîäíîé ïîëíîñâÿçíûé ñëîé, 800 íåéðîíîâ, 784 âõîäà â êàæäûé íåéðîí
+# Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
 model.add(Dense(800, input_dim=784, activation="relu"))
-# Âûõîäíîé ïîëíîñâÿçíûé ñëîé, 10 íåéðîíîâ (ïî êîëè÷åñòâó ðóêîïèñíûõ öèôð)
+# Выходной полносвязный слой, 10 нейронов (по количеству типов одежды)
 model.add(Dense(10, activation="softmax"))
 
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
@@ -49,11 +49,9 @@ history = model.fit(x_train, y_train,
                     validation_split=0.2,
                     verbose=1)
 
-model.save('fashion_mnist_dense.h5')
-
 scores = model.evaluate(x_test, y_test, verbose=1)
 
-print("Äîëÿ âåðíûõ îòâåòîâ íà òåñòîâûõ äàííûõ, â ïðîöåíòàõ:", round(scores[1] * 100, 4))
+print("Доля верных ответов на тестовых данных, в процентах:", round(scores[1] * 100, 4))
 
 def preprocess_image(img):
     img = img.resize((224, 224))
@@ -73,11 +71,11 @@ def load_image():
         return None
     
 def print_predictions(preds):
-    classes = decode_predictions(preds, top=3)[0]
-    for cl in classes:
-        st.write(str(cl[1]).replace('_'," "), cl[2])
+    prediction = np.argmax(prediction)
+    st.write(prediction)
+    st.write(classes[prediction])
 
-st.title('Распознавание изображений')
+st.title('Распознавание одежды на изображениях')
 img = load_image()
 result = st.button('Распознать изображение')
 if result:
