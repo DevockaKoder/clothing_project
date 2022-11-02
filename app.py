@@ -5,6 +5,7 @@ from tensorflow.keras import utils
 from tensorflow.keras.preprocessing import image
 
 import io
+import requests
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,7 +14,7 @@ from PIL import Image
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
+classes = ['ГґГіГІГЎГ®Г«ГЄГ ', 'ГЎГ°ГѕГЄГЁ', 'Г±ГўГЁГІГҐГ°', 'ГЇГ«Г ГІГјГҐ', 'ГЇГ Г«ГјГІГ®', 'ГІГіГґГ«ГЁ', 'Г°ГіГЎГ ГёГЄГ ', 'ГЄГ°Г®Г±Г±Г®ГўГЄГЁ', 'Г±ГіГ¬ГЄГ ', 'ГЎГ®ГІГЁГ­ГЄГЁ']
 
 plt.figure(figsize=(10,10))
 for i in range(100,150):
@@ -27,8 +28,8 @@ for i in range(100,150):
 x_train = x_train.reshape(60000, 784)
 x_test = x_test.reshape(10000, 784)
 
-# Векторизованные операции
-# Применяются к каждому элементу массива отдельно
+# Г‚ГҐГЄГІГ®Г°ГЁГ§Г®ГўГ Г­Г­Г»ГҐ Г®ГЇГҐГ°Г Г¶ГЁГЁ
+# ГЏГ°ГЁГ¬ГҐГ­ГїГѕГІГ±Гї ГЄ ГЄГ Г¦Г¤Г®Г¬Гі ГЅГ«ГҐГ¬ГҐГ­ГІГі Г¬Г Г±Г±ГЁГўГ  Г®ГІГ¤ГҐГ«ГјГ­Г®
 x_train = x_train / 255 
 x_test = x_test / 255 
 
@@ -42,11 +43,11 @@ y_test = utils.to_categorical(y_test, 10)
 
 print(y_train[n])
 
-# Создаем последовательную модель
+# Г‘Г®Г§Г¤Г ГҐГ¬ ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­ГіГѕ Г¬Г®Г¤ГҐГ«Гј
 model = Sequential()
-# Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
+# Г‚ГµГ®Г¤Г­Г®Г© ГЇГ®Г«Г­Г®Г±ГўГїГ§Г­Г»Г© Г±Г«Г®Г©, 800 Г­ГҐГ©Г°Г®Г­Г®Гў, 784 ГўГµГ®Г¤Г  Гў ГЄГ Г¦Г¤Г»Г© Г­ГҐГ©Г°Г®Г­
 model.add(Dense(800, input_dim=784, activation="relu"))
-# Выходной полносвязный слой, 10 нейронов (по количеству рукописных цифр)
+# Г‚Г»ГµГ®Г¤Г­Г®Г© ГЇГ®Г«Г­Г®Г±ГўГїГ§Г­Г»Г© Г±Г«Г®Г©, 10 Г­ГҐГ©Г°Г®Г­Г®Гў (ГЇГ® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГі Г°ГіГЄГ®ГЇГЁГ±Г­Г»Гµ Г¶ГЁГґГ°)
 model.add(Dense(10, activation="softmax"))
 
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
@@ -63,7 +64,7 @@ model.save('fashion_mnist_dense.h5')
 
 scores = model.evaluate(x_test, y_test, verbose=1)
 
-print("Доля верных ответов на тестовых данных, в процентах:", round(scores[1] * 100, 4))
+print("Г„Г®Г«Гї ГўГҐГ°Г­Г»Гµ Г®ГІГўГҐГІГ®Гў Г­Г  ГІГҐГ±ГІГ®ГўГ»Гµ Г¤Г Г­Г­Г»Гµ, Гў ГЇГ°Г®Г¶ГҐГ­ГІГ Гµ:", round(scores[1] * 100, 4))
 
 n_rec = 496
 
@@ -76,17 +77,17 @@ x = np.expand_dims(x, axis=0)
 prediction = model.predict(x)
 
 prediction = np.argmax(prediction[0])
-print("Номер класса:", prediction)
-print("Название класса:", classes[prediction])
+print("ГЌГ®Г¬ГҐГ° ГЄГ«Г Г±Г±Г :", prediction)
+print("ГЌГ Г§ГўГ Г­ГЁГҐ ГЄГ«Г Г±Г±Г :", classes[prediction])
 
 label = np.argmax(y_test[0])
-print("Номер класса:", label)
-print("Название класса:", classes[label])
+print("ГЌГ®Г¬ГҐГ° ГЄГ«Г Г±Г±Г :", label)
+print("ГЌГ Г§ГўГ Г­ГЁГҐ ГЄГ«Г Г±Г±Г :", classes[label])
 
-#создаем функцию загрузки файла
+#Г±Г®Г§Г¤Г ГҐГ¬ ГґГіГ­ГЄГ¶ГЁГѕ Г§Г ГЈГ°ГіГ§ГЄГЁ ГґГ Г©Г«Г 
 
 def load_image():
-    uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
+    uploaded_file = st.file_uploader(label='Г‚Г»ГЎГҐГ°ГЁГІГҐ ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГҐ Г¤Г«Гї Г°Г Г±ГЇГ®Г§Г­Г ГўГ Г­ГЁГї')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
@@ -102,11 +103,11 @@ def preprocess_image(img):
     return x
 
 
-st.title('Распознавание одежды на фото')
+st.title('ГђГ Г±ГЇГ®Г§Г­Г ГўГ Г­ГЁГҐ Г®Г¤ГҐГ¦Г¤Г» Г­Г  ГґГ®ГІГ®')
 img = load_image()
-result = st.button('Распознать изображение')
+result = st.button('ГђГ Г±ГЇГ®Г§Г­Г ГІГј ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГҐ')
 if result:
     x = preprocess_image(img)
     preds = model.predict(x)
-    st.write('**Результаты распознавания:**')
+    st.write('**ГђГҐГ§ГіГ«ГјГІГ ГІГ» Г°Г Г±ГЇГ®Г§Г­Г ГўГ Г­ГЁГї:**')
     print_predictions(preds)
