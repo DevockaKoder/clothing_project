@@ -67,7 +67,7 @@ def print_predictions(preds):
     st.write(classes[prediction])
 
 st.title('Распознавание одежды на изображениях')
-img = load_image()
+img = load_image(target_size=(28, 28), color_mode = "grayscale")
 result = st.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
