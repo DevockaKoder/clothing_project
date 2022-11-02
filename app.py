@@ -2,7 +2,7 @@ from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras import utils
-from tensorflow.keras.preprocessing import image, load_img, img_to_array
+from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.applications.efficientnet import preprocess_input
 
