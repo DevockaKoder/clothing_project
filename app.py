@@ -42,10 +42,13 @@ history = model.fit(x_train, y_train,
 model.save('fashion_mnist_dense.h5')
 
 def preprocess_image(img):
-    img = img.resize((224, 224))
     x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
+    # Меняем форму массива в плоский вектор
+    x = x.reshape(1, 784)
+    # Инвертируем изображение
+    x = 255 - x
+    # Нормализуем изображение
+    x /= 255
     return x
 
 
