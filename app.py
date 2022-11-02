@@ -2,7 +2,7 @@ from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras import utils
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing import image, load_img, img_to_array
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.applications.efficientnet import preprocess_input
 
@@ -67,7 +67,8 @@ def print_predictions(preds):
     st.write(classes[prediction])
 
 st.title('Распознавание одежды на изображениях')
-img = load_image(target_size=(28, 28), color_mode = "grayscale")
+img = load_image()
+img = img.resize((28,28))
 result = st.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
