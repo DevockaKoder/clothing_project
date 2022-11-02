@@ -57,6 +57,8 @@ def load_image():
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
+        image_data = image_data.resize((28,28))
+        st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     else:
         return None
@@ -68,7 +70,6 @@ def print_predictions(preds):
 
 st.title('Распознавание одежды на изображениях')
 img = load_image()
-img = img.resize((28,28))
 result = st.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
