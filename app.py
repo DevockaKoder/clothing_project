@@ -103,11 +103,11 @@ def preprocess_image(img):
     return x
 
 
-st.title('Ðàñïîçíàâàíèå îäåæäû íà ôîòî')
+st.title('Распознавание одежды на фото')
 img = load_image()
-result = st.button('Ðàñïîçíàòü èçîáðàæåíèå')
+result = st.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
     preds = model.predict(x)
-    st.write('**Ðåçóëüòàòû ðàñïîçíàâàíèÿ:**')
+    st.write('**Результаты распознавания:**')
     print_predictions(preds)
