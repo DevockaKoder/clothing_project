@@ -43,7 +43,7 @@ model.save('fashion_mnist_dense.h5')
 
 def preprocess_image(img):
     img = img.resize((28, 28))
-    img = color_image.convert('L')
+    img = img.convert('L')
     x = image.img_to_array(img)
     # Меняем форму массива в плоский вектор
     x = x.reshape(1, 784)
