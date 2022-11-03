@@ -64,9 +64,9 @@ def load_image():
         return None
     
 def print_predictions(preds):
-    prediction = np.argmax(prediction)
-    st.write(prediction)
-    st.write(classes[prediction])
+    preds = np.argmax(preds)
+    st.write(preds)
+    st.write(classes[preds])
 
 st.title('Распознавание одежды на изображениях')
 img = load_image()
