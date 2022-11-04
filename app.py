@@ -7,7 +7,6 @@ from tensorflow.keras.preprocessing import image
 import io
 import requests
 import streamlit as st
-import time
 import numpy as np
 from PIL import Image
 
@@ -74,14 +73,13 @@ st.title('Распознавание одежды на изображениях'
 epoch = st.slider("Выберите количество эпох", 10, 130, 10)
 
 training = st.button('Обучить сеть')
-my_bar = st.progress(0)
+
 if training:
     st.write('Обучаем, подождите...')
     my_bar = st.progress(0)
     for percent_complete in range(100):
         #time.sleep(0.1)
         my_bar.progress(percent_complete + 1)
-        st.balloons()
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs = int(epoch),
@@ -89,6 +87,7 @@ if training:
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
     scores = model.evaluate(x_test, y_test, verbose=1)
+    st.balloons()
     st.write("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)))
     
 img = load_image()
