@@ -26,7 +26,7 @@ model = Sequential()
 classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
 # Скрытый слой
 # Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
-model.add(Dense(800, input_dim=784, activation="relu"))
+model.add(Dense(900, input_dim=784, activation="relu"))
 
 model.add(Dense(600, activation="relu")) 
 
@@ -62,7 +62,7 @@ def print_predictions(preds):
     #находит индекс максимального элемента
     index = np.argmax(preds)
     #округляет элемент, который находится на 1 позиции под номером индекс (предс это не массив, а н-мерный массив)
-    percent = str(round(preds[0, index] * 10, 4))  
+    percent = str(round(preds[0, index] * 100, 4))  
     st.write(preds)
     st.write( "**Номер категории** " + str(index))
     st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
