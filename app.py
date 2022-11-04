@@ -78,9 +78,9 @@ my_bar = st.progress(0)
 if training:
     st.write('Обучаем, подождите...')
     my_bar = st.progress(0)
-    for percent_complete in range(200):
+    for percent_complete in range(100):
         #time.sleep(0.1)
-        my_bar.progress(percent_complete + 1)
+        my_bar.progress(percent_complete + 0.5)
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs = int(epoch),
