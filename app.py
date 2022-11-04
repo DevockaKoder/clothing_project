@@ -60,8 +60,9 @@ def print_predictions(preds):
     index = np.argmax(preds)
     #по индексу находит макс элемент и округляет
     #percent = str(round(preds[index] * 100, 4))  
+    st.write(type(preds))
     st.write( "**Номер категории** " + str(index))
-    st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
+    st.write("**Это** " + str(classes[index]) + " **на** " + "percent" + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
 
