@@ -58,8 +58,8 @@ def load_image():
 def print_predictions(preds):
     #находит индекс максимального элемента
     index = np.argmax(preds)
-    #по индексу находит макс элемент и округляет
-    percent = str(round(preds[0, index] * 100, 4))  
+    #округляет элемент, который находится на 1 позиции под номером индекс (предс это не массив, а н-мерный массив)
+    percent = str(round(preds[0, index] * 10, 4))  
     st.write(preds)
     st.write( "**Номер категории** " + str(index))
     st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
