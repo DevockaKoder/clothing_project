@@ -24,12 +24,15 @@ y_test = utils.to_categorical(y_test, 10)
 model = Sequential()
 
 classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
-
+# Скрытый слой
 # Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
 model.add(Dense(800, input_dim=784, activation="relu"))
 
+model.add(Dense(600, activation="relu")) 
+
 # Выходной полносвязный слой, 10 нейронов (по количеству типов одежды)
 model.add(Dense(10, activation="softmax"))
+
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
 
 def preprocess_image(img):
@@ -67,7 +70,7 @@ def print_predictions(preds):
 st.title('Распознавание одежды на изображениях')
 
 #крутилки
-epoch = st.slider("Выберите количество эпох", 10, 100, 10)
+epoch = st.slider("Выберите количество эпох", 10, 130, 10)
 
 training = st.button('Обучить сеть')
 if training:
