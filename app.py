@@ -7,6 +7,7 @@ from tensorflow.keras.preprocessing import image
 import io
 import requests
 import streamlit as st
+import time
 import numpy as np
 from PIL import Image
 
@@ -74,12 +75,16 @@ epoch = st.slider("Выберите количество эпох", 10, 130, 10)
 
 training = st.button('Обучить сеть')
 if training:
+    my_bar = st.progress(0)
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs = int(epoch),
                     validation_split=0.2,
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
+    for percent_complete in range(200):
+    time.sleep(0.1)
+    my_bar.progress(percent_complete + 1)
     scores = model.evaluate(x_test, y_test, verbose=1)
     st.write("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)))
     
