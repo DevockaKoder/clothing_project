@@ -38,7 +38,7 @@ model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accura
 def preprocess_image(img):
     img = img.resize((28, 28))
     img = img.convert('L')
-    st.image(img)
+    #st.image(img)
     x = image.img_to_array(img)
     # Меняем форму массива в плоский вектор
     x = x.reshape(1, 784)
@@ -63,9 +63,11 @@ def print_predictions(preds):
     index = np.argmax(preds)
     #округляет элемент, который находится на 1 позиции под номером индекс (предс это не массив, а н-мерный массив)
     percent = str(round(preds[0, index] * 100, 4))  
-    st.write(preds)
-    st.write( "**Номер категории** " + str(index))
-    st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
+    #st.write(preds)
+    #st.write( "**Номер категории:** " + str(index))
+    #st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
+    #st.write( "**Номер категории:** " + '0')
+    #st.write("**Это** " + ' футболка ' + " **на** " +' 86.67' + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
 
