@@ -3,8 +3,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras import utils
 from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications import EfficientNetB0
-from tensorflow.keras.applications.efficientnet import preprocess_input
 
 import io
 import requests
@@ -13,37 +11,31 @@ import numpy as np
 from PIL import Image
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
-
-classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
-
 x_train = x_train.reshape(60000, 784)
-
+x_test = x_test.reshape(10000, 784)
 # Векторизованные операции
 # Применяются к каждому элементу массива отдельно
 x_train = x_train / 255 
-
+x_test = x_test / 255 
 y_train = utils.to_categorical(y_train, 10)
- 
-# Создаем последовательную модель
+y_test = utils.to_categorical(y_test, 10)
+
+# Создаем последовательную моделья
 model = Sequential()
+
+classes = ['футболка', 'брюки', 'свитер', 'платье', 'пальто', 'туфли', 'рубашка', 'кроссовки', 'сумка', 'ботинки']
+
 # Входной полносвязный слой, 800 нейронов, 784 входа в каждый нейрон
 model.add(Dense(800, input_dim=784, activation="relu"))
+
 # Выходной полносвязный слой, 10 нейронов (по количеству типов одежды)
 model.add(Dense(10, activation="softmax"))
-
 model.compile(loss="categorical_crossentropy", optimizer="SGD", metrics=["accuracy"])
-
-history = model.fit(x_train, y_train, 
-                    batch_size=200, 
-                    epochs=100,
-                    validation_split=0.2,
-                    verbose=1)
-
-model.save('fashion_mnist_dense.h5')
 
 def preprocess_image(img):
     img = img.resize((28, 28))
     img = img.convert('L')
+    st.image(img)
     x = image.img_to_array(img)
     # Меняем форму массива в плоский вектор
     x = x.reshape(1, 784)
@@ -64,11 +56,23 @@ def load_image():
         return None
     
 def print_predictions(preds):
-    preds = np.argmax(preds)
-    st.write(preds)
-    st.write(classes[preds])
+    index = np.argmax(preds)
+    percent = str(round(preds[index] * 100, 4))  
+    st.write( "**Номер категории** " + str(index))
+    st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
+training = st.button('Обучить сеть')
+if training:
+    history = model.fit(x_train, y_train, 
+                    batch_size=200, 
+                    epochs=100,
+                    validation_split=0.2,
+                    verbose=1)
+    model.save('fashion_mnist_dense.h5')
+    scores = model.evaluate(x_test, y_test, verbose=1)
+    st.write("Доля верных ответов на тестовых данных, в процентах:" +  str(round(scores[1] * 100, 4)))
+    
 img = load_image()
 result = st.button('Распознать изображение')
 if result:
@@ -76,6 +80,7 @@ if result:
     preds = model.predict(x)
     st.write('**Результаты распознавания:**')
     print_predictions(preds)
+
     
 
     
