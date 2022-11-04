@@ -80,7 +80,8 @@ if training:
     my_bar = st.progress(0)
     for percent_complete in range(100):
         #time.sleep(0.1)
-        my_bar.progress(percent_complete + 0.01)
+        my_bar.progress(percent_complete + 1)
+        st.balloons()
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs = int(epoch),
