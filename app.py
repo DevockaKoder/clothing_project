@@ -56,12 +56,18 @@ def load_image():
         return None
     
 def print_predictions(preds):
+    #находит индекс максимального элемента
     index = np.argmax(preds)
-    percent = str(round(preds[index] * 100, 4))  
+    #по индексу находит макс элемент и округляет
+    #percent = str(round(preds[index] * 100, 4))  
     st.write( "**Номер категории** " + str(index))
     st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
+
+#крутилки
+epochs = st.slider("Выберите количество эпох", 10, 100, 10)
+
 training = st.button('Обучить сеть')
 if training:
     history = model.fit(x_train, y_train, 
@@ -71,7 +77,7 @@ if training:
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
     scores = model.evaluate(x_test, y_test, verbose=1)
-    st.write("Доля верных ответов на тестовых данных, в процентах:" +  str(round(scores[1] * 100, 4)))
+    st.write("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)))
     
 img = load_image()
 result = st.button('Распознать изображение')
