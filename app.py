@@ -66,13 +66,13 @@ def print_predictions(preds):
 st.title('Распознавание одежды на изображениях')
 
 #крутилки
-epochs = st.slider("Выберите количество эпох", 10, 100, 10)
+epoch = st.slider("Выберите количество эпох", 10, 100, 10)
 
 training = st.button('Обучить сеть')
 if training:
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
-                    epochs=100,
+                    epochs = epoch,
                     validation_split=0.2,
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
