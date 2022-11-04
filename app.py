@@ -83,8 +83,8 @@ if training:
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
     for percent_complete in range(200):
-    time.sleep(0.1)
-    my_bar.progress(percent_complete + 1)
+        time.sleep(0.1)
+        my_bar.progress(percent_complete + 1)
     scores = model.evaluate(x_test, y_test, verbose=1)
     st.write("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)))
     
