@@ -74,6 +74,7 @@ st.title('Распознавание одежды на изображениях'
 epoch = st.slider("Выберите количество эпох", 10, 130, 10)
 
 training = st.button('Обучить сеть')
+my_bar = st.progress(0)
 if training:
     my_bar = st.progress(0)
     history = model.fit(x_train, y_train, 
@@ -83,6 +84,7 @@ if training:
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
     for percent_complete in range(200):
+        st.write('Обучаем, подождите...')
         time.sleep(0.1)
         my_bar.progress(percent_complete + 1)
     scores = model.evaluate(x_test, y_test, verbose=1)
