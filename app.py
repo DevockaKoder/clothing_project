@@ -84,7 +84,7 @@ if training:
     model.save('fashion_mnist_dense.h5')
     scores = model.evaluate(x_test, y_test, verbose=1)
     st.balloons()
-    st.write("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)))
+    st.success("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)), icon="✅")
     
 img = load_image()
 result = st.button('Распознать изображение')
