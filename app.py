@@ -63,11 +63,9 @@ def print_predictions(preds):
     index = np.argmax(preds)
     #округляет элемент, который находится на 1 позиции под номером индекс (предс это не массив, а н-мерный массив)
     percent = str(round(preds[0, index] * 100, 4))  
-    #st.write(preds)
-    #st.write( "**Номер категории:** " + str(index))
-    #st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
-    st.write( "**Номер категории:** " + '0')
-    st.write("**Это** " + ' футболка ' + " **на** " +' 86.67' + " **%** " )
+    st.write(preds)
+    st.write( "**Номер категории:** " + str(index))
+    st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
 
@@ -79,7 +77,7 @@ training = st.button('Обучить сеть')
 if training:
     st.write('Обучаем, подождите...')
     history = model.fit(x_train, y_train, 
-                    batch_size=200, 
+                    batch_size=1000, 
                     epochs = int(epoch),
                     validation_split=0.2,
                     verbose=1)
