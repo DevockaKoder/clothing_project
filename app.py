@@ -76,7 +76,8 @@ if training:
     #st.write('Обучаем, подождите...')
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
-                    epochs = int(epoch),
+                    #epochs = int(epoch),
+                    epochs = 10,
                     validation_split=0.2,
                     verbose=1)
     model.save('fashion_mnist_dense.h5')
