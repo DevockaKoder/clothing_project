@@ -73,7 +73,7 @@ epoch = st.slider("Выберите количество эпох", 10, 130, 10)
 training = st.button('Обучить сеть')
 
 if training:
-    st.write('Обучаем, подождите...')
+    #st.write('Обучаем, подождите...')
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
                     epochs = int(epoch),
