@@ -75,8 +75,7 @@ training = st.button('Обучить сеть')
 if training:
     #st.write('Обучаем, подождите...')
     history = model.fit(x_train, y_train, 
-                    batch_size=200, 
-                    iteration = 4,
+                    batch_size=150,
                     epochs = int(epoch),
                     validation_split=0.2,
                     verbose=1)
