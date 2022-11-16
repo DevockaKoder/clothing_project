@@ -76,6 +76,7 @@ if training:
     #st.write('Обучаем, подождите...')
     history = model.fit(x_train, y_train, 
                     batch_size=200, 
+                    iterations = 4,
                     epochs = int(epoch),
                     validation_split=0.2,
                     verbose=1)
