@@ -88,6 +88,11 @@ img = load_image()
 result = st.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
+    history = model.fit(x_train, y_train, 
+                    batch_size=200,
+                    epochs = 100,
+                    validation_split=0.2,
+                    verbose=1)
     preds = model.predict(x)
     st.write('**Результаты распознавания:**')
     print_predictions(preds)
