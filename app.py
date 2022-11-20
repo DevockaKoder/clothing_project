@@ -67,15 +67,16 @@ def print_predictions(preds):
 
 st.title('Распознавание одежды на изображениях')
 
+
+    
+img = load_image()
 #крутилки
 epoch = st.slider("Выберите количество эпох", 10, 130, 10)
-
-training = st.button('Обучить сеть')
-
-if training:
-    #st.write('Обучаем, подождите...')
+result = st.button('Распознать изображение')
+if result:
+    x = preprocess_image(img)
     history = model.fit(x_train, y_train, 
-                    batch_size=150,
+                    batch_size=200,
                     epochs = int(epoch),
                     validation_split=0.2,
                     verbose=1)
@@ -83,16 +84,6 @@ if training:
     scores = model.evaluate(x_test, y_test, verbose=1)
     st.balloons()
     st.success("Доля верных ответов на тестовых данных, в процентах: " +  str(round(scores[1] * 100, 4)), icon="✅")
-    
-img = load_image()
-result = st.button('Распознать изображение')
-if result:
-    x = preprocess_image(img)
-    history = model.fit(x_train, y_train, 
-                    batch_size=200,
-                    epochs = 100,
-                    validation_split=0.2,
-                    verbose=1)
     preds = model.predict(x)
     st.write('**Результаты распознавания:**')
     print_predictions(preds)
