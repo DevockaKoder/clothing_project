@@ -48,7 +48,7 @@ def preprocess_image(img):
 
 
 def load_image():
-    uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
+    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
@@ -71,8 +71,8 @@ st.title('Распознавание одежды на изображениях'
     
 img = load_image()
 #крутилки
-epoch = st.slider("Выберите количество эпох", 10, 130, 10)
-result = st.button('Распознать изображение')
+epoch = st.sidebar.slider("Выберите количество эпох", 10, 130, 10)
+result = st.sidebar.button('Распознать изображение')
 if result:
     x = preprocess_image(img)
     history = model.fit(x_train, y_train, 
