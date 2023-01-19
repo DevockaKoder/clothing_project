@@ -54,10 +54,7 @@ def load_image():
     uploaded_file = st.sidebar.file_uploader('Выберите изображение для распознавания:', ('jpg', 'jpeg'))
     if not uploaded_file:
         uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
-    else:
-        image_data = uploaded_file.getvalue()
-        st.image(image_data)
-        return Image.open(io.BytesIO(image_data))
+    
        
     
 def print_predictions(preds):
