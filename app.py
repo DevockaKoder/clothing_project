@@ -10,6 +10,8 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 
+DEFAULT_IMAGE_URL = 'https://ibb.co/y5wTrsL'
+
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 x_train = x_train.reshape(60000, 784)
 x_test = x_test.reshape(10000, 784)
@@ -54,7 +56,7 @@ def load_image():
         st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     else:
-        return None
+        return BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     
 def print_predictions(preds):
     #находит индекс максимального элемента
