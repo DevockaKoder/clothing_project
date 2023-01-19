@@ -48,8 +48,7 @@ def preprocess_image(img):
     x /= 255
     return x
 
-# Temporary config option to remove deprecation warning.
-st.set_option('deprecation.showfileUploaderEncoding', False)
+
        
     
 def print_predictions(preds):
@@ -63,12 +62,15 @@ def print_predictions(preds):
 
 st.title('Распознавание одежды на изображениях')
 
+# Temporary config option to remove deprecation warning.
+st.set_option('deprecation.showfileUploaderEncoding', False)
+
 DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
 
 file_obj = st.sidebar.file_uploader('Choose an image:', ('jpg', 'jpeg'))
 
 if not file_obj:
-    file_obj = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
+    file_obj = io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     
 img = Image.open(io.BytesIO(file_obj))
 #крутилки
