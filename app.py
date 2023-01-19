@@ -57,7 +57,7 @@ def load_image():
         st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     else:
-        image_data = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
+        return none
        
     
 def print_predictions(preds):
