@@ -56,6 +56,7 @@ def load_image():
     if not uploaded_file:
         uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     image_data = PIL.Image.open(uploaded_file)
+    return Image.open(io.BytesIO(image_data))
     
        
     
