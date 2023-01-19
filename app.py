@@ -52,12 +52,13 @@ def preprocess_image(img):
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 def load_image():
-    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
-    if not uploaded_file:
-        uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
-    image_data = PIL.Image.open(uploaded_file)
-    return Image.open(io.BytesIO(image_data))
-    
+    uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
+    if uploaded_file is not None:
+        image_data = uploaded_file.getvalue()
+        st.image(image_data)
+        return Image.open(io.BytesIO(image_data))
+    else:
+        return Image.open(io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL)))
        
     
 def print_predictions(preds):
