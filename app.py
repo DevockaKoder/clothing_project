@@ -9,6 +9,7 @@ import requests
 import streamlit as st
 import numpy as np
 from PIL import Image
+from io import BytesIO
 
 DEFAULT_IMAGE_URL = 'https://ibb.co/y5wTrsL'
 
