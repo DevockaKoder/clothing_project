@@ -11,7 +11,7 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 
-DEFAULT_IMAGE_URL = 'https://ibb.co/y5wTrsL'
+DEFAULT_IMAGE_URL = 'https://i.imgur.com/VloosOE.jpeg'
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 x_train = x_train.reshape(60000, 784)
