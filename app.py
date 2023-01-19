@@ -49,11 +49,14 @@ def preprocess_image(img):
     x /= 255
     return x
 
+# Temporary config option to remove deprecation warning.
+st.set_option('deprecation.showfileUploaderEncoding', False)
 
 def load_image():
-    uploaded_file = st.sidebar.file_uploader('Выберите изображение для распознавания:', ('jpg', 'jpeg'))
+    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания', ('jpg', 'jpeg'))
     if not uploaded_file:
         uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
+    image_data = PIL.Image.open(uploaded_file)
     
        
     
