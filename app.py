@@ -60,13 +60,13 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
 
 def load_image():
-    uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
+    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     else:
-        uploaded_file = io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
+        image_data = io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
         st.image(image_data)
         return Image.open(io.BytesIO(image_data))
     
