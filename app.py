@@ -57,7 +57,7 @@ def load_image():
         return Image.open(io.BytesIO(image_data))
     else:
         image_data = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
-        return Image.open(io.BytesIO(image_data))
+       
     
 def print_predictions(preds):
     #находит индекс максимального элемента
