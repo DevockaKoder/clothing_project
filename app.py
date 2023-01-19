@@ -49,8 +49,26 @@ def preprocess_image(img):
     x /= 255
     return x
 
+@st.cache()
+def read_file_from_url(url):
+    return urllib.request.urlopen(url).read()
 
-       
+
+# Temporary config option to remove deprecation warning.
+st.set_option('deprecation.showfileUploaderEncoding', False)
+      
+DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
+
+def load_image():
+    uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
+    if uploaded_file is not None:
+        image_data = uploaded_file.getvalue()
+        st.image(image_data)
+        return Image.open(io.BytesIO(image_data))
+    else:
+        uploaded_file = io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
+        st.image(image_data)
+        return Image.open(io.BytesIO(image_data))
     
 def print_predictions(preds):
     #находит индекс максимального элемента
@@ -63,21 +81,8 @@ def print_predictions(preds):
 
 st.title('Распознавание одежды на изображениях')
 
-@st.cache()
-def read_file_from_url(url):
-    return urllib.request.urlopen(url).read()
-
-# Temporary config option to remove deprecation warning.
-st.set_option('deprecation.showfileUploaderEncoding', False)
-
-DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
-
-file_obj = st.sidebar.file_uploader('Choose an image:', ('jpg', 'jpeg'))
-
-if not file_obj:
-    file_obj = io.BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     
-img = Image.open(io.BytesIO(file_obj))
+img = load_image()
 #крутилки
 epoch = st.sidebar.slider("Выберите количество эпох", 10, 130, 10)
 result = st.sidebar.button('Распознать изображение')
