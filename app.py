@@ -50,18 +50,6 @@ def preprocess_image(img):
 
 # Temporary config option to remove deprecation warning.
 st.set_option('deprecation.showfileUploaderEncoding', False)
-
-def load_image():
-    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
-    if not  uploaded_file:
-        uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
-        image_data = uploaded_file.getvalue()
-        st.image(image_data)
-        return Image.open(io.BytesIO(image_data))
-    else:
-        image_data = uploaded_file.getvalue()
-        st.image(image_data)
-        return Image.open(io.BytesIO(image_data))
        
     
 def print_predictions(preds):
@@ -76,8 +64,12 @@ def print_predictions(preds):
 st.title('Распознавание одежды на изображениях')
 
 
+file_obj = st.sidebar.file_uploader('Choose an image:', ('jpg', 'jpeg'))
+
+if not file_obj:
+    file_obj = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     
-img = load_image()
+img = Image.open(io.BytesIO(file_obj))
 #крутилки
 epoch = st.sidebar.slider("Выберите количество эпох", 10, 130, 10)
 result = st.sidebar.button('Распознать изображение')
