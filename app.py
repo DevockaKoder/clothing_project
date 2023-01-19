@@ -51,7 +51,7 @@ def preprocess_image(img):
 
 
 def load_image():
-    uploaded_file = st.sidebar.file_uploader('Выберите изображение для распознавания:', ('jpg', 'jpeg'))  = st.sidebar.file_uploader(label='')
+    uploaded_file = st.sidebar.file_uploader('Выберите изображение для распознавания:', ('jpg', 'jpeg'))
     if not uploaded_file:
         uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     else:
