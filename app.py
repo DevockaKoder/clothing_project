@@ -5,6 +5,7 @@ from tensorflow.keras import utils
 from tensorflow.keras.preprocessing import image
 
 import io
+import urllib
 import requests
 import streamlit as st
 import numpy as np
@@ -61,6 +62,10 @@ def print_predictions(preds):
     st.write("**Это** " + str(classes[index]) + " **на** " + percent + " **%** " )
 
 st.title('Распознавание одежды на изображениях')
+
+@st.cache()
+def read_file_from_url(url):
+    return urllib.request.urlopen(url).read()
 
 # Temporary config option to remove deprecation warning.
 st.set_option('deprecation.showfileUploaderEncoding', False)
