@@ -10,7 +10,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 
-DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
+
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 x_train = x_train.reshape(60000, 784)
@@ -63,6 +63,7 @@ def print_predictions(preds):
 
 st.title('Распознавание одежды на изображениях')
 
+DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
 
 file_obj = st.sidebar.file_uploader('Choose an image:', ('jpg', 'jpeg'))
 
