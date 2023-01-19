@@ -9,7 +9,6 @@ import requests
 import streamlit as st
 import numpy as np
 from PIL import Image
-from io import BytesIO
 
 DEFAULT_IMAGE_URL = 'https://i.imgur.com/dOPMzXl.jpg'
 
@@ -53,7 +52,7 @@ def preprocess_image(img):
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 def load_image():
-    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания', ('jpg', 'jpeg'))
+    uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
     if not uploaded_file:
         uploaded_file = BytesIO(read_file_from_url(DEFAULT_IMAGE_URL))
     image_data = PIL.Image.open(uploaded_file)
