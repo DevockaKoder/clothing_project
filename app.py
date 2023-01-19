@@ -57,7 +57,7 @@ def read_file_from_url(url):
 # Temporary config option to remove deprecation warning.
 st.set_option('deprecation.showfileUploaderEncoding', False)
       
-DEFAULT_IMAGE_URL = 'https://i.imgur.com/VloosOE.jpeg'
+DEFAULT_IMAGE_URL = 'https://sun9-east.userapi.com/sun9-58/s/v1/ig2/1AhNsNOCKb1oamROfMU1wACX-6NT_vJ6ka9NVMBlfstx5EKxgs-tHda_Cm-qL03bojL0o51HgGlRokZ1cN8DevYA.jpg'
 
 def load_image():
     uploaded_file = st.sidebar.file_uploader(label='Выберите изображение для распознавания')
